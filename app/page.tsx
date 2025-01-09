@@ -26,9 +26,24 @@ export default async function Home({
   const icon_base_url = "https://openweathermap.org/img/wn";
   // Check if the temperature unit is metric or imperial
   const degreesOrFahrenheit = weatherData.units === "metric" ? "C" : "F";
+  const windUnits = temperatureUnit === "metric" ? "m/s" : "mph";
 
-  if (!weatherData) {
-    return <div>loading...</div>;
+  // Check if there is an error in fetching the weather data
+  if (weatherData.error) {
+    return (
+      <div className="w-full min-h-screen flex items-center  justify-center ">
+        <div>
+          <p>
+            <span>Error:</span>
+            <span className="text-content2">{weatherData.error}</span>
+          </p>
+          {/* TODO: Why Link does not reload a server page?? but <a></a> does */}
+          <a href="/" className="link link-primary">
+            Clear search and reload
+          </a>
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -57,7 +72,6 @@ export default async function Home({
       <main className="col-span-12 md:col-span-10 p-2 md:p-7">
         {/* top bar */}
         <TopBar initialCity={cityName} initialUnits={temperatureUnit} />
-
         {/* 3 day forecast */}
         <div className="w-full flex flex-col md:flex-row gap-5 my-8">
           {weatherData.forecast.map((forecast) => (
@@ -73,8 +87,8 @@ export default async function Home({
         <div className="w-full flex flex-col md:flex-row justify-between gap-5">
           <WeatherCard
             title="Wind status"
-            content={`${weatherData.current.wind_speed.toString()} km/h`}
-            footerContent=""
+            content={`${weatherData.current.wind_speed.toString()} ${windUnits}`}
+            footerContent={`${weatherData.current.wind_deg} ${weatherData.current.wind_direction}`}
           />
           <WeatherCard
             title="Humidity"

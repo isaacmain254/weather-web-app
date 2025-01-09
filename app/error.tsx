@@ -1,18 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 interface ErrorProps {
   error: Error & { digest?: string };
-  reset: () => void;
 }
 
-export default function Error({ error, reset }: ErrorProps) {
-  const router = useRouter();
-  const handleTryAgain = () => {
-    router.push("/");
-    reset();
-  };
+export default function Error({ error }: ErrorProps) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="w-full max-w-md space-y-6">
@@ -30,9 +22,10 @@ export default function Error({ error, reset }: ErrorProps) {
         </div>
 
         <div className="text-center space-y-4">
-          <button onClick={handleTryAgain} className="btn btn-error btn-block">
+          {/* TODO: Why Link does not reload a server page?? but <a></a> does */}
+          <a className="link link-primary" href="/">
             Try Again
-          </button>
+          </a>
         </div>
       </div>
     </div>

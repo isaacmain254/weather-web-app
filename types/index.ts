@@ -1,4 +1,6 @@
-export type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+export type SearchParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
 
 export interface WeatherData {
   current: {
@@ -8,6 +10,8 @@ export interface WeatherData {
     humidity: number;
     wind_speed: number;
     date: string;
+    wind_deg: number;
+    wind_direction: string;
   };
   forecast: {
     date: string;
@@ -24,6 +28,7 @@ export interface WeatherData {
     };
   };
   units: string;
+  // error: unknown;
 }
 
 export interface TopBarProps {
