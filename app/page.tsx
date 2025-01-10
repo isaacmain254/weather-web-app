@@ -28,24 +28,6 @@ export default async function Home({
   const degreesOrFahrenheit = weatherData.units === "metric" ? "C" : "F";
   const windUnits = temperatureUnit === "metric" ? "m/s" : "mph";
 
-  // Check if there is an error in fetching the weather data
-  if (weatherData.error) {
-    return (
-      <div className="w-full min-h-screen flex items-center  justify-center ">
-        <div>
-          <p>
-            <span>Error:</span>
-            <span className="text-content2">{weatherData.error}</span>
-          </p>
-          {/* TODO: Why Link does not reload a server page?? but <a></a> does */}
-          <a href="/" className="link link-primary">
-            Clear search and reload
-          </a>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <section className="grid grid-cols-12 w-full lg:w-8/12 mx-auto md:mt-5 border border-gray-800 rounded">
       <aside className="col-span-12 md:col-span-2 flex flex-col items-center justify-between text-center h-full  lg:px-3 py-6 border-r border-gray-700">

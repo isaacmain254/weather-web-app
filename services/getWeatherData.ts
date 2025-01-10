@@ -12,6 +12,6 @@ export const getWeather = async (city: string, units: string) => {
     const data = await response.json();
     return data;
   } catch (error) {
-    return (error as Error).message;
+    throw new Error((error as Error).message);
   }
 };
